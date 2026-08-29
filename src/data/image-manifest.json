@@ -1,0 +1,159 @@
+{
+  "agra-fort": {
+    "widths": [
+      480
+    ],
+    "aspect": 1.5355,
+    "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoGAAQAA4BaJQBOgB6QOhGAAPYrNtTdPa/hlL1+out5Mof93wAAAA=="
+  },
+  "agra-taj-arch": {
+    "widths": [
+      480,
+      960
+    ],
+    "aspect": 1.7771,
+    "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoGAAMAA4BaJYwCdAEfbhD3AAD+idxEHxj8GrbIGoJRZAQ7QsOoZlsHgAA="
+  },
+  "apartment-813": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.9253,
+    "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACQAQCdASoGAAMAA4BaJZwAApz92sAA/go5Dx6OWPJBOKBfAAAAAA=="
+  },
+  "dest-agra": {
+    "widths": [
+      480
+    ],
+    "aspect": 0.6663,
+    "blur": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoGAAkAA4BaJaACdADcO3sZgAD+CyXbTWdj/iT/fKBc1kzVFMeGauSXl3DhvhpMZ8ZHrcDal1nho1gTrqrTV3AAAAA="
+  },
+  "dest-jaipur": {
+    "widths": [
+      455
+    ],
+    "aspect": 0.6751,
+    "blur": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADQAQCdASoGAAkAA4BaJZgCdAEO4aerQAD+YU1RL9h4sKCmTCVBbv98VKeCRu+0OTOH/bwZgAA="
+  },
+  "jaipur-amber-fort": {
+    "widths": [
+      480
+    ],
+    "aspect": 1.5,
+    "blur": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoGAAQAA4BaJbACdAEO1m02AADLSwpD8l4rPJn2Pd2nl9xAhfSXQAAA"
+  },
+  "jaipur-jal-mahal": {
+    "widths": [
+      480,
+      960
+    ],
+    "aspect": 1.7778,
+    "blur": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAgCdASoGAAMAA4BaJbACdDiAAUo+XhYAAP6HrSp2R+lOLzke7XothFD8IxNawipNZ0AA"
+  },
+  "jaipur-nahargarh": {
+    "widths": [
+      400
+    ],
+    "aspect": 0.7505,
+    "blur": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAQCdASoGAAgAA4BaJbACdAEO5m+NGDAA/f0krRgaic501uQ+DFOFKFdlaweDfurJnl1MWAAAAA=="
+  },
+  "studio-1210": {
+    "widths": [
+      480,
+      960
+    ],
+    "aspect": 0.6914,
+    "blur": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADwAQCdASoGAAkAA4BaJYwC7AD0ZDIcClgA/OlDhLhw5+7vQKcFx7lKVtXD4Id5Q6SPZwAA"
+  },
+  "studio-1212": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.7778,
+    "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoGAAMAA4BaJZQCdAD0jUEeoAD2th0p+gLbMgBHWzoL7HedAhQ+e+kAAAA="
+  },
+  "studio-502-alwar": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 0.5625,
+    "blur": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoGAAsAA4BaJQBOgB6FfQvQAPxz9w5fq0my5h4NpDxS/E0PM+S/am0H8nACzwQkEL2xL5FZBbaAAA=="
+  },
+  "studio-603-alwar": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 0.5625,
+    "blur": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADwAQCdASoGAAsAA4BaJbACdAD0udeUdQAA/tYaWHxwL59pjQIhNU/uu3U9N9qHazRlIJkYE2x4tWlOAPSW2pdfOfpNss34oaDg02q7xRtAAA=="
+  },
+  "studio-711": {
+    "widths": [
+      480,
+      960
+    ],
+    "aspect": 0.721,
+    "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoGAAgAA4BaJQBOgCKTRDqI4AD9/F2U5KKgPgUNJkb4w7hP4s5GyWeVweSAZbPSVPQzONoA"
+  },
+  "studio-807-alwar": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.7778,
+    "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoGAAMAA4BaJYgCdAD0gbJgAOJ9lRaHGUNbJ4LQqbUaqO1NyJV6vK4AAAA="
+  },
+  "studio-808-alwar": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.7778,
+    "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoGAAMAA4BaJYgCdAD0gbJgAOJ9lRaHGUNbJ4LQqbUaqO1NyJV6vK4AAAA="
+  },
+  "studio-909": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.7778,
+    "blur": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoGAAMAA4BaJYwCdIExFcuUQCAA/fod6lcctn13YAniZwHPPV3/s9AA"
+  },
+  "studio-925": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.7778,
+    "blur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoGAAMAA4BaJYwCdAD0mdV+sAD+sgZitDXiSl/IH7oQXgEAAAA="
+  },
+  "villa-65-sariska": {
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "aspect": 1.7776,
+    "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAQCdASoGAAMAA4BaJagCdAD0pz5M7gAA/LQ2wrbARSNCfWiq035CQSfzTh9iy5OXXQpflOfKAAAA"
+  }
+}

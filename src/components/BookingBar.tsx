@@ -1,0 +1,87 @@
+import { useState } from 'react'
+import { useBooking } from '../lib/booking-context'
+import { todayISO } from '../lib/booking'
+
+export default function BookingBar() {
+  const { openBooking } = useBooking()
+  const [destination, setDestination] = useState('all')
+  const [checkIn, setCheckIn] = useState(todayISO(7))
+  const [checkOut, setCheckOut] = useState(todayISO(9))
+  const [guests, setGuests] = useState(2)
+
+  const field =
+    'w-full rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-medium text-ink [color-scheme:light] outline-none transition focus:border-maroon focus:ring-2 focus:ring-maroon/20'
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        openBooking({ destination, checkIn, checkOut, guests })
+      }}
+      className="grid grid-cols-2 gap-3 rounded-3xl border border-white/40 bg-cream/95 p-4 shadow-2xl backdrop-blur-lg sm:grid-cols-[1.2fr_1fr_1fr_0.8fr_auto] sm:items-end sm:rounded-full sm:py-3 sm:pl-6 sm:pr-3"
+    >
+      <label className="col-span-2 block sm:col-span-1">
+        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+          Destination
+        </span>
+        <select value={destination} onChange={(e) => setDestination(e.target.value)} className={field}>
+          <option value="all">Anywhere</option>
+          <option value="jaipur">Jaipur</option>
+          <option value="alwar">Alwar</option>
+          <option value="sariska">Sariska</option>
+        </select>
+      </label>
+      <label className="block">
+        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+          Check-in
+        </span>
+        <input
+          type="date"
+          required
+          min={todayISO()}
+          value={checkIn}
+          onChange={(e) => {
+            setCheckIn(e.target.value)
+            if (e.target.value >= checkOut) {
+              const d = new Date(e.target.value + 'T12:00:00')
+              d.setDate(d.getDate() + 1)
+              setCheckOut(d.toISOString().slice(0, 10))
+            }
+          }}
+          className={field}
+        />
+      </label>
+      <label className="block">
+        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+          Check-out
+        </span>
+        <input
+          type="date"
+          required
+          min={checkIn}
+          value={checkOut}
+          onChange={(e) => setCheckOut(e.target.value)}
+          className={field}
+        />
+      </label>
+      <label className="block">
+        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+          Guests
+        </span>
+        <select value={guests} onChange={(e) => setGuests(+e.target.value)} className={field}>
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <option key={n} value={n}>
+              {n}{n === 6 ? '+' : ''}
+            </option>
+          ))}
+        </select>
+      </label>
+      <button
+        type="submit"
+        className="col-span-2 rounded-full bg-maroon px-7 py-3 text-sm font-semibold text-cream transition hover:bg-maroon-deep sm:col-span-1"
+      >
+        Check Availability
+      </button>
+    </form>
+  )
+}

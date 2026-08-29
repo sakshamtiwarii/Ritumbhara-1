@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-maroon: #97183c;
+  --color-maroon-deep: #7e1433;
+  --color-cream: #fbf9f6;
+  --color-sand: #f5f1ea;
+  --color-linen: #ede7dd;
+  --color-ink: #1a1a1a;
+  --color-charcoal: #141210;
+  --color-gold: #c9a35c;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Anchored sections land below the fixed nav */
+[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+:focus-visible {
+  outline: 2px solid #97183c;
+  outline-offset: 2px;
+}
+
+body {
+  @apply bg-cream font-sans text-ink antialiased;
+}
+
+::selection {
+  @apply bg-maroon text-cream;
+}
+
+/* Continuous ticker used in the hero footer strip */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 36s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+}
