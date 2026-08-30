@@ -35,9 +35,9 @@ for (const file of files) {
   for (const w of widths) {
     const resized = input.clone().resize(w, null, { withoutEnlargement: true })
     await Promise.all([
-      resized.clone().avif({ quality: 52 }).toFile(join(OUT, `${name}-${w}.avif`)),
-      resized.clone().webp({ quality: 74 }).toFile(join(OUT, `${name}-${w}.webp`)),
-      resized.clone().jpeg({ quality: 76, mozjpeg: true }).toFile(join(OUT, `${name}-${w}.jpg`)),
+      resized.clone().avif({ quality: 60 }).toFile(join(OUT, `${name}-${w}.avif`)),
+      resized.clone().webp({ quality: 82 }).toFile(join(OUT, `${name}-${w}.webp`)),
+      resized.clone().jpeg({ quality: 84, mozjpeg: true }).toFile(join(OUT, `${name}-${w}.jpg`)),
     ])
   }
 

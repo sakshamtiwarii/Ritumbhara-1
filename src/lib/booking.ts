@@ -87,6 +87,11 @@ export function searchStays(
 
 export const inr = (n: number) => '₹' + n.toLocaleString('en-IN')
 
+/** Default search window offered before the user picks dates: a week out, two nights. */
+export function defaultStay(): { checkIn: string; checkOut: string } {
+  return { checkIn: todayISO(7), checkOut: todayISO(9) }
+}
+
 export function todayISO(offsetDays = 0): string {
   const d = new Date()
   d.setDate(d.getDate() + offsetDays)

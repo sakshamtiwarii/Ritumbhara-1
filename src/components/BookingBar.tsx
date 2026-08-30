@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { useBooking } from '../lib/booking-context'
-import { todayISO, nextDayISO } from '../lib/booking'
+import { defaultStay, todayISO, nextDayISO } from '../lib/booking'
+import { FIELD } from '../lib/ui'
+
+const DEFAULTS = defaultStay()
 
 export default function BookingBar() {
   const { openBooking } = useBooking()
   const [destination, setDestination] = useState('all')
-  const [checkIn, setCheckIn] = useState(todayISO(7))
-  const [checkOut, setCheckOut] = useState(todayISO(9))
+  const [checkIn, setCheckIn] = useState(DEFAULTS.checkIn)
+  const [checkOut, setCheckOut] = useState(DEFAULTS.checkOut)
   const [guests, setGuests] = useState(2)
 
-  const field =
-    'w-full rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-medium text-ink [color-scheme:light] outline-none transition focus:border-maroon focus:ring-2 focus:ring-maroon/20'
+  const field = `${FIELD} px-3 py-2.5 font-medium [color-scheme:light]`
 
   return (
     <form
