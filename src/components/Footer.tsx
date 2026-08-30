@@ -75,7 +75,16 @@ export default function Footer() {
             <li><a href="#top" className="hover:text-cream">Our Story</a></li>
             <li><a href="#standard" className="hover:text-cream">The Ritumbhara Standard</a></li>
             <li><a href="#experiences" className="hover:text-cream">Experiences</a></li>
-            <li><a href="#stays" className="hover:text-cream">Partner With Us</a></li>
+            <li>
+              <a
+                href={`${WHATSAPP}?text=${encodeURIComponent("Hi, I own a property and I'd like to partner with Ritumbhara")}`}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-cream"
+              >
+                Partner With Us
+              </a>
+            </li>
           </ul>
         </div>
         <div>
