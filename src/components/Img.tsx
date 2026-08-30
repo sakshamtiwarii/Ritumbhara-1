@@ -35,7 +35,7 @@ export default function Img({ name, alt, sizes = '100vw', className = '', eager 
         sizes={sizes}
         alt={alt}
         loading={eager ? 'eager' : 'lazy'}
-        decoding={eager ? 'sync' : 'async'}
+        decoding="async"
         onLoad={() => setLoaded(true)}
         className={`h-full w-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
       />

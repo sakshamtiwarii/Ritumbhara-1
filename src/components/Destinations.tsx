@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { DESTINATIONS } from '../data/properties'
-import { useBooking } from '../lib/booking-context'
 import Img from './Img'
 import Reveal from './Reveal'
 
-export default function Destinations() {
-  const { openBooking } = useBooking()
+const MotionLink = motion.create(Link)
 
-  return (
+export default function Destinations() {
+    return (
     <section id="destinations" className="bg-cream py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
@@ -21,8 +21,8 @@ export default function Destinations() {
           {DESTINATIONS.map((d, i) => (
             <Reveal key={d.id} delay={i * 0.1}>
               {d.open && d.image ? (
-                <motion.button
-                  onClick={() => openBooking({ destination: d.id })}
+                <MotionLink
+                  to={`/destinations/${d.id}`}
                   whileHover="hover"
                   className="group relative block h-105 w-full overflow-hidden rounded-3xl text-left text-cream"
                 >
@@ -41,13 +41,13 @@ export default function Destinations() {
                     <h3 className="mt-1 font-display text-3xl">{d.name}</h3>
                     <p className="mt-2 text-sm text-cream/75">{d.blurb}</p>
                     <p className="mt-3 text-sm font-semibold opacity-0 transition duration-500 group-hover:opacity-100">
-                      Check availability →
+                      Explore {d.name} →
                     </p>
                   </div>
-                </motion.button>
+                </MotionLink>
               ) : (
-                <a
-                  href="#notify"
+                <Link
+                  to={`/destinations/${d.id}`}
                   className="group relative block h-105 w-full overflow-hidden rounded-3xl text-left text-cream"
                 >
                   <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105">
@@ -72,7 +72,7 @@ export default function Destinations() {
                       Get notified →
                     </p>
                   </div>
-                </a>
+                </Link>
               )}
             </Reveal>
           ))}

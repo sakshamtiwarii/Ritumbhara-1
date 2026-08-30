@@ -1,33 +1,54 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useBooking } from '../lib/booking-context'
+import { useBooking, type BookingRequest } from '../lib/booking-context'
 import { searchStays, getQuote, inr, fmtDate, type Quote } from '../lib/booking'
-import { PROPERTIES, WHATSAPP } from '../data/properties'
+import { PROPERTIES, destinationName, waLink } from '../data/properties'
 import Img from './Img'
 
 type Step = { view: 'results' } | { view: 'quote'; quote: Quote } | { view: 'confirmed'; quote: Quote }
 
 export default function BookingModal() {
   const { request, closeBooking } = useBooking()
-  const [step, setStep] = useState<Step>({ view: 'results' })
+  return (
+    <AnimatePresence>
+      {request && <BookingDialog key="dialog" request={request} onClose={closeBooking} />}
+    </AnimatePresence>
+  )
+}
+
+/** Mounted fresh per open, so all flow state resets with each request. */
+function BookingDialog({ request, onClose }: { request: BookingRequest; onClose: () => void }) {
+  // Entry step: jump straight to the quote when a specific property was requested
+  const [step, setStep] = useState<Step>(() => {
+    const p = request.propertySlug && PROPERTIES.find((x) => x.slug === request.propertySlug)
+    return p
+      ? { view: 'quote', quote: getQuote(p, request.checkIn, request.checkOut) }
+      : { view: 'results' }
+  })
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  // Re-derive the entry step each time the modal opens
   useEffect(() => {
-    if (!request) return
-    if (request.propertySlug) {
-      const p = PROPERTIES.find((x) => x.slug === request.propertySlug)
-      if (p) {
-        setStep({ view: 'quote', quote: getQuote(p, request.checkIn, request.checkOut) })
-        return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') return onClose()
+      if (e.key !== 'Tab') return
+      // Keep Tab cycling inside the dialog while it's open
+      const dialog = dialogRef.current
+      if (!dialog) return
+      const focusables = dialog.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      )
+      if (focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      const active = document.activeElement
+      if (!dialog.contains(active) || (!e.shiftKey && active === last)) {
+        e.preventDefault()
+        first.focus()
+      } else if (e.shiftKey && (active === first || active === dialog)) {
+        e.preventDefault()
+        last.focus()
       }
     }
-    setStep({ view: 'results' })
-  }, [request])
-
-  useEffect(() => {
-    if (!request) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeBooking()
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
     const prev = document.activeElement as HTMLElement | null
@@ -37,25 +58,20 @@ export default function BookingModal() {
       document.body.style.overflow = ''
       prev?.focus()
     }
-  }, [request, closeBooking])
+  }, [onClose])
 
   const results = useMemo(
-    () =>
-      request
-        ? searchStays(request.destination, request.checkIn, request.checkOut, request.guests)
-        : [],
+    () => searchStays(request.destination, request.checkIn, request.checkOut, request.guests),
     [request],
   )
 
   return (
-    <AnimatePresence>
-      {request && (
-        <motion.div
+    <motion.div
           className="fixed inset-0 z-100 flex items-end justify-center bg-ink/60 backdrop-blur-sm sm:items-center sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={closeBooking}
+          onClick={onClose}
         >
           <motion.div
             ref={dialogRef}
@@ -85,7 +101,7 @@ export default function BookingModal() {
                 </p>
               </div>
               <button
-                onClick={closeBooking}
+                onClick={onClose}
                 aria-label="Close"
                 className="grid size-9 place-items-center rounded-full text-ink/60 transition hover:bg-linen hover:text-ink"
               >
@@ -128,7 +144,7 @@ export default function BookingModal() {
                         <div className="min-w-0 flex-1">
                           <p className="truncate font-semibold">{q.property.name}</p>
                           <p className="text-xs text-ink/50">
-                            {q.property.type} · {q.property.destination[0].toUpperCase() + q.property.destination.slice(1)}
+                            {q.property.type} · {destinationName(q.property.destination)}
                           </p>
                           <p className="mt-1 text-xs text-ink/60">{q.property.amenities.slice(0, 3).join(' · ')}</p>
                         </div>
@@ -157,12 +173,10 @@ export default function BookingModal() {
                 />
               )}
 
-              {step.view === 'confirmed' && <ConfirmedView quote={step.quote} onClose={closeBooking} />}
+              {step.view === 'confirmed' && <ConfirmedView quote={step.quote} onClose={onClose} />}
             </div>
           </motion.div>
         </motion.div>
-      )}
-    </AnimatePresence>
   )
 }
 
@@ -232,7 +246,7 @@ function QuoteView({
           </button>
         )}
         <a
-          href={`${WHATSAPP}?text=${encodeURIComponent(`Hi, I'd like to check availability for ${p.name}`)}`}
+          href={waLink(`Hi, I'd like to check availability for ${p.name}`)}
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-maroon px-5 py-2.5 text-sm font-medium text-maroon transition hover:bg-maroon hover:text-cream"
@@ -240,6 +254,14 @@ function QuoteView({
           WhatsApp
         </a>
       </div>
+      <a
+        href={p.bookingUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-3 block text-center text-xs font-semibold text-ink/50 underline-offset-4 hover:text-ink hover:underline"
+      >
+        or book this room live on Hotel Spider →
+      </a>
       <p className="mt-3 text-center text-[11px] text-ink/40">
         Demo flow — no payment is taken and no reservation is created.
       </p>

@@ -104,8 +104,9 @@ export default function Hero() {
       {/* Destination ticker */}
       <div className="absolute inset-x-0 bottom-0 overflow-hidden border-t border-cream/10 bg-charcoal/80 py-3 backdrop-blur-sm">
         <div className="animate-marquee flex w-max gap-10 whitespace-nowrap text-xs uppercase tracking-[0.35em] text-cream/40">
+          {/* second copy exists only to make the marquee loop seamless */}
           {[0, 1].map((n) => (
-            <span key={n} className="flex gap-10">
+            <span key={n} className="flex gap-10" aria-hidden={n === 1}>
               {['Jaipur', 'Alwar', 'Sariska', 'Agra — Coming Soon', 'The Ritumbhara Standard'].map(
                 (t) => (
                   <span key={t}>{t} ·</span>
@@ -124,7 +125,7 @@ function HeroBackdrop({ reduced }: { reduced: boolean }) {
   const [slide, setSlide] = useState(0)
   const [videoOk, setVideoOk] = useState(false)
   // Skip the video for reduced-motion users and on phones (weight + autoplay etiquette)
-  const [wantVideo] = useState(
+  const [wantVideo, setWantVideo] = useState(
     () => !reduced && typeof window !== 'undefined' && window.matchMedia('(min-width: 640px)').matches,
   )
 
@@ -146,6 +147,10 @@ function HeroBackdrop({ reduced }: { reduced: boolean }) {
           playsInline
           preload="metadata"
           onCanPlay={() => setVideoOk(true)}
+          onError={() => {
+            setVideoOk(false)
+            setWantVideo(false)
+          }}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${videoOk ? 'opacity-100' : 'opacity-0'}`}
         />
       )}

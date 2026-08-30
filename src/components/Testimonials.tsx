@@ -6,10 +6,12 @@ import Reveal from './Reveal'
 export default function Testimonials() {
   const [index, setIndex] = useState(0)
 
+  // `index` in the deps restarts the timer whenever a dot is clicked, so a
+  // manual selection gets its full 5.5s before auto-advance resumes
   useEffect(() => {
     const t = setInterval(() => setIndex((i) => (i + 1) % TESTIMONIALS.length), 5500)
     return () => clearInterval(t)
-  }, [])
+  }, [index])
 
   const t = TESTIMONIALS[index]
 

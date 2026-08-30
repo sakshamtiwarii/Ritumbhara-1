@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { DESTINATIONS, EMAIL, PHONE, WHATSAPP } from '../data/properties'
 import Reveal from './Reveal'
 
@@ -63,8 +64,10 @@ export default function Footer() {
           <ul className="mt-4 space-y-2 text-sm text-cream/70">
             {DESTINATIONS.map((d) => (
               <li key={d.id}>
-                {d.name}
-                {!d.open && <span className="text-cream/40"> (Coming Soon)</span>}
+                <Link to={`/destinations/${d.id}`} className="hover:text-cream">
+                  {d.name}
+                  {!d.open && <span className="text-cream/40"> (Coming Soon)</span>}
+                </Link>
               </li>
             ))}
           </ul>
@@ -72,19 +75,11 @@ export default function Footer() {
         <div>
           <h3 className="text-xs font-semibold uppercase tracking-widest text-cream/40">Company</h3>
           <ul className="mt-4 space-y-2 text-sm text-cream/70">
-            <li><a href="#top" className="hover:text-cream">Our Story</a></li>
-            <li><a href="#standard" className="hover:text-cream">The Ritumbhara Standard</a></li>
-            <li><a href="#experiences" className="hover:text-cream">Experiences</a></li>
-            <li>
-              <a
-                href={`${WHATSAPP}?text=${encodeURIComponent("Hi, I own a property and I'd like to partner with Ritumbhara")}`}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-cream"
-              >
-                Partner With Us
-              </a>
-            </li>
+            <li><Link to="/about" className="hover:text-cream">Our Story</Link></li>
+            <li><Link to="/#standard" className="hover:text-cream">The Ritumbhara Standard</Link></li>
+            <li><Link to="/journal" className="hover:text-cream">Journal</Link></li>
+            <li><Link to="/contact" className="hover:text-cream">Contact</Link></li>
+            <li><Link to="/partner" className="hover:text-cream">Partner With Us</Link></li>
           </ul>
         </div>
         <div>

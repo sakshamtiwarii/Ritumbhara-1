@@ -1,23 +1,26 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useBooking } from '../lib/booking-context'
 
 const LINKS = [
-  { href: '#destinations', label: 'Destinations' },
-  { href: '#stays', label: 'Stays' },
-  { href: '#standard', label: 'The Standard' },
-  { href: '#experiences', label: 'Experiences' },
-  { href: '#contact', label: 'Contact' },
+  { to: '/#destinations', label: 'Destinations' },
+  { to: '/#stays', label: 'Stays' },
+  { to: '/#standard', label: 'The Standard' },
+  { to: '/journal', label: 'Journal' },
+  { to: '/about', label: 'Our Story' },
+  { to: '/partner', label: 'Partner' },
 ]
 
 export default function Nav() {
   const { scrollY } = useScroll()
-  const [solid, setSolid] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { openBooking } = useBooking()
 
-  useMotionValueEvent(scrollY, 'change', (v) => setSolid(v > 60))
+  useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 60))
 
+  const solid = scrolled || open
   return (
     <motion.header
       initial={{ y: -80 }}
@@ -28,16 +31,16 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-        <a href="#top" className="font-display text-2xl tracking-wide">
+        <Link to="/" onClick={() => setOpen(false)} className="font-display text-2xl tracking-wide">
           Ritumbhara<sup className="text-xs">®</sup>
-        </a>
+        </Link>
 
-        <ul className="hidden items-center gap-8 text-sm font-medium lg:flex">
+        <ul className="hidden items-center gap-7 text-sm font-medium lg:flex">
           {LINKS.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="opacity-80 transition hover:opacity-100">
+            <li key={l.to}>
+              <Link to={l.to} className="opacity-80 transition hover:opacity-100">
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -71,10 +74,10 @@ export default function Nav() {
           className="space-y-1 bg-cream px-6 pb-6 text-ink lg:hidden"
         >
           {LINKS.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} onClick={() => setOpen(false)} className="block py-2 font-medium">
+            <li key={l.to}>
+              <Link to={l.to} onClick={() => setOpen(false)} className="block py-2 font-medium">
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
