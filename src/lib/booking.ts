@@ -93,6 +93,12 @@ export function todayISO(offsetDays = 0): string {
   return toISO(d)
 }
 
+export function nextDayISO(iso: string): string {
+  const d = new Date(iso + 'T12:00:00')
+  d.setDate(d.getDate() + 1)
+  return toISO(d)
+}
+
 export function fmtDate(iso: string): string {
   return new Date(iso + 'T00:00:00').toLocaleDateString('en-IN', {
     day: 'numeric',

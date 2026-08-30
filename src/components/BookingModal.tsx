@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useBooking } from '../lib/booking-context'
 import { searchStays, getQuote, inr, fmtDate, type Quote } from '../lib/booking'
@@ -10,6 +10,7 @@ type Step = { view: 'results' } | { view: 'quote'; quote: Quote } | { view: 'con
 export default function BookingModal() {
   const { request, closeBooking } = useBooking()
   const [step, setStep] = useState<Step>({ view: 'results' })
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   // Re-derive the entry step each time the modal opens
   useEffect(() => {
@@ -29,9 +30,12 @@ export default function BookingModal() {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeBooking()
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
+    const prev = document.activeElement as HTMLElement | null
+    requestAnimationFrame(() => dialogRef.current?.focus())
     return () => {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
+      prev?.focus()
     }
   }, [request, closeBooking])
 
@@ -54,9 +58,11 @@ export default function BookingModal() {
           onClick={closeBooking}
         >
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label="Booking"
+            tabIndex={-1}
             className="flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl bg-cream shadow-2xl sm:rounded-3xl"
             initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -88,7 +94,12 @@ export default function BookingModal() {
             </div>
 
             <div className="overflow-y-auto px-6 py-5">
-              {step.view === 'results' && (
+              {step.view === 'results' && request.checkIn >= request.checkOut && (
+                <p className="py-8 text-center text-sm text-ink/60">
+                  Check-out must be after check-in — pick at least one night.
+                </p>
+              )}
+              {step.view === 'results' && request.checkIn < request.checkOut && (
                 <ul className="space-y-4">
                   {results.length === 0 && (
                     <p className="py-8 text-center text-sm text-ink/60">

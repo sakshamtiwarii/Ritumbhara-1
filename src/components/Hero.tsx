@@ -123,6 +123,10 @@ export default function Hero() {
 function HeroBackdrop({ reduced }: { reduced: boolean }) {
   const [slide, setSlide] = useState(0)
   const [videoOk, setVideoOk] = useState(false)
+  // Skip the video for reduced-motion users and on phones (weight + autoplay etiquette)
+  const [wantVideo] = useState(
+    () => !reduced && typeof window !== 'undefined' && window.matchMedia('(min-width: 640px)').matches,
+  )
 
   useEffect(() => {
     if (reduced || videoOk) return
@@ -133,16 +137,18 @@ function HeroBackdrop({ reduced }: { reduced: boolean }) {
   return (
     <div className="relative h-full w-full">
       {/* Drop a hero.mp4 into public/ and it takes over automatically */}
-      <video
-        src="/hero.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        onCanPlay={() => setVideoOk(true)}
-        className={`absolute inset-0 h-full w-full object-cover ${videoOk ? 'opacity-100' : 'opacity-0'}`}
-      />
+      {wantVideo && (
+        <video
+          src="/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onCanPlay={() => setVideoOk(true)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${videoOk ? 'opacity-100' : 'opacity-0'}`}
+        />
+      )}
       {!videoOk && (
         <AnimatePresence>
           <motion.div

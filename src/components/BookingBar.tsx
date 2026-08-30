@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useBooking } from '../lib/booking-context'
-import { todayISO } from '../lib/booking'
+import { todayISO, nextDayISO } from '../lib/booking'
 
 export default function BookingBar() {
   const { openBooking } = useBooking()
@@ -43,9 +43,7 @@ export default function BookingBar() {
           onChange={(e) => {
             setCheckIn(e.target.value)
             if (e.target.value >= checkOut) {
-              const d = new Date(e.target.value + 'T12:00:00')
-              d.setDate(d.getDate() + 1)
-              setCheckOut(d.toISOString().slice(0, 10))
+              setCheckOut(nextDayISO(e.target.value))
             }
           }}
           className={field}
@@ -58,7 +56,7 @@ export default function BookingBar() {
         <input
           type="date"
           required
-          min={checkIn}
+          min={nextDayISO(checkIn)}
           value={checkOut}
           onChange={(e) => setCheckOut(e.target.value)}
           className={field}
